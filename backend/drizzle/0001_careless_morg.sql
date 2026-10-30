@@ -1,0 +1,1 @@
+ALTER TABLE "simulation_resultats" ADD COLUMN "unites_gaspillees" integer DEFAULT 0 NOT NULL;

@@ -1,0 +1,1351 @@
+{
+  "id": "7c65dd37-18a2-49e9-9d5b-307489955b49",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.bornes": {
+      "name": "bornes",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "nom": {
+          "name": "nom",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "zone_id": {
+          "name": "zone_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "statut": {
+          "name": "statut",
+          "type": "statut_borne",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'ACTIF'"
+        },
+        "derniere_sync_le": {
+          "name": "derniere_sync_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "bornes_zone_id_zones_id_fk": {
+          "name": "bornes_zone_id_zones_id_fk",
+          "tableFrom": "bornes",
+          "tableTo": "zones",
+          "columnsFrom": [
+            "zone_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.couts_achat": {
+      "name": "couts_achat",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "produit_id": {
+          "name": "produit_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fournisseur": {
+          "name": "fournisseur",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "prix_achat": {
+          "name": "prix_achat",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "quantite": {
+          "name": "quantite",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date_achat": {
+          "name": "date_achat",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "couts_achat_produit_id_produits_id_fk": {
+          "name": "couts_achat_produit_id_produits_id_fk",
+          "tableFrom": "couts_achat",
+          "tableTo": "produits",
+          "columnsFrom": [
+            "produit_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.evenements": {
+      "name": "evenements",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "nom": {
+          "name": "nom",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "zone_id": {
+          "name": "zone_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date_debut": {
+          "name": "date_debut",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date_fin": {
+          "name": "date_fin",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "impact_demande": {
+          "name": "impact_demande",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'1.0'"
+        },
+        "actif": {
+          "name": "actif",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "evenements_zone_id_zones_id_fk": {
+          "name": "evenements_zone_id_zones_id_fk",
+          "tableFrom": "evenements",
+          "tableTo": "zones",
+          "columnsFrom": [
+            "zone_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.journal_technique": {
+      "name": "journal_technique",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "type": {
+          "name": "type",
+          "type": "type_journal_technique",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "borne_id": {
+          "name": "borne_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "produit_id": {
+          "name": "produit_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "donnees": {
+          "name": "donnees",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::jsonb"
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "journal_technique_borne_id_bornes_id_fk": {
+          "name": "journal_technique_borne_id_bornes_id_fk",
+          "tableFrom": "journal_technique",
+          "tableTo": "bornes",
+          "columnsFrom": [
+            "borne_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "journal_technique_produit_id_produits_id_fk": {
+          "name": "journal_technique_produit_id_produits_id_fk",
+          "tableFrom": "journal_technique",
+          "tableTo": "produits",
+          "columnsFrom": [
+            "produit_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.prix_courants": {
+      "name": "prix_courants",
+      "schema": "",
+      "columns": {
+        "produit_id": {
+          "name": "produit_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "borne_id": {
+          "name": "borne_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "valeur": {
+          "name": "valeur",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mode": {
+          "name": "mode",
+          "type": "mode_prix",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'AUTOMATIQUE'"
+        },
+        "source": {
+          "name": "source",
+          "type": "source_prix",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'MANUEL'"
+        },
+        "raison": {
+          "name": "raison",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "mis_a_jour_le": {
+          "name": "mis_a_jour_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "prix_courants_produit_id_produits_id_fk": {
+          "name": "prix_courants_produit_id_produits_id_fk",
+          "tableFrom": "prix_courants",
+          "tableTo": "produits",
+          "columnsFrom": [
+            "produit_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "prix_courants_borne_id_bornes_id_fk": {
+          "name": "prix_courants_borne_id_bornes_id_fk",
+          "tableFrom": "prix_courants",
+          "tableTo": "bornes",
+          "columnsFrom": [
+            "borne_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "prix_courants_produit_id_borne_id_pk": {
+          "name": "prix_courants_produit_id_borne_id_pk",
+          "columns": [
+            "produit_id",
+            "borne_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "public.prix_historique": {
+      "name": "prix_historique",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "produit_id": {
+          "name": "produit_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "borne_id": {
+          "name": "borne_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "valeur_precedente": {
+          "name": "valeur_precedente",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "valeur": {
+          "name": "valeur",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mode": {
+          "name": "mode",
+          "type": "mode_prix",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source": {
+          "name": "source",
+          "type": "source_prix",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "raison": {
+          "name": "raison",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "cree_par_utilisateur_id": {
+          "name": "cree_par_utilisateur_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "prix_historique_produit_id_produits_id_fk": {
+          "name": "prix_historique_produit_id_produits_id_fk",
+          "tableFrom": "prix_historique",
+          "tableTo": "produits",
+          "columnsFrom": [
+            "produit_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "prix_historique_borne_id_bornes_id_fk": {
+          "name": "prix_historique_borne_id_bornes_id_fk",
+          "tableFrom": "prix_historique",
+          "tableTo": "bornes",
+          "columnsFrom": [
+            "borne_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "prix_historique_cree_par_utilisateur_id_utilisateurs_id_fk": {
+          "name": "prix_historique_cree_par_utilisateur_id_utilisateurs_id_fk",
+          "tableFrom": "prix_historique",
+          "tableTo": "utilisateurs",
+          "columnsFrom": [
+            "cree_par_utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.produits": {
+      "name": "produits",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "sku": {
+          "name": "sku",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nom": {
+          "name": "nom",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "categorie": {
+          "name": "categorie",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "prix_reference": {
+          "name": "prix_reference",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cout_achat_actuel": {
+          "name": "cout_achat_actuel",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "prix_min": {
+          "name": "prix_min",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "prix_max": {
+          "name": "prix_max",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "prix_stable": {
+          "name": "prix_stable",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "suivi_dlc": {
+          "name": "suivi_dlc",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "marge_minimale": {
+          "name": "marge_minimale",
+          "type": "numeric(5, 4)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'0.05'"
+        },
+        "actif": {
+          "name": "actif",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "mis_a_jour_le": {
+          "name": "mis_a_jour_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "produits_sku_unique": {
+          "name": "produits_sku_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "sku"
+          ]
+        }
+      }
+    },
+    "public.reapprovisionnements": {
+      "name": "reapprovisionnements",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "produit_id": {
+          "name": "produit_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "borne_id": {
+          "name": "borne_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "quantite": {
+          "name": "quantite",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "statut": {
+          "name": "statut",
+          "type": "statut_reapprovisionnement",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'PLANIFIE'"
+        },
+        "date_prevue": {
+          "name": "date_prevue",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date_reelle": {
+          "name": "date_reelle",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "reapprovisionnements_produit_id_produits_id_fk": {
+          "name": "reapprovisionnements_produit_id_produits_id_fk",
+          "tableFrom": "reapprovisionnements",
+          "tableTo": "produits",
+          "columnsFrom": [
+            "produit_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "reapprovisionnements_borne_id_bornes_id_fk": {
+          "name": "reapprovisionnements_borne_id_bornes_id_fk",
+          "tableFrom": "reapprovisionnements",
+          "tableTo": "bornes",
+          "columnsFrom": [
+            "borne_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.regles_de_prix": {
+      "name": "regles_de_prix",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "nom": {
+          "name": "nom",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "parametres": {
+          "name": "parametres",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::jsonb"
+        },
+        "actif": {
+          "name": "actif",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "priorite": {
+          "name": "priorite",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 100
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "mis_a_jour_le": {
+          "name": "mis_a_jour_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.simulation_resultats": {
+      "name": "simulation_resultats",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "simulation_run_id": {
+          "name": "simulation_run_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "strategie": {
+          "name": "strategie",
+          "type": "strategie_simulation",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "marge_cumulee": {
+          "name": "marge_cumulee",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "chiffre_affaires": {
+          "name": "chiffre_affaires",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "unites_vendues": {
+          "name": "unites_vendues",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "evolution_prix": {
+          "name": "evolution_prix",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "simulation_resultats_simulation_run_id_simulation_runs_id_fk": {
+          "name": "simulation_resultats_simulation_run_id_simulation_runs_id_fk",
+          "tableFrom": "simulation_resultats",
+          "tableTo": "simulation_runs",
+          "columnsFrom": [
+            "simulation_run_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.simulation_runs": {
+      "name": "simulation_runs",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "nom": {
+          "name": "nom",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "duree_jours": {
+          "name": "duree_jours",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 60
+        },
+        "zone_id": {
+          "name": "zone_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "parametres": {
+          "name": "parametres",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::jsonb"
+        },
+        "cree_par_utilisateur_id": {
+          "name": "cree_par_utilisateur_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "simulation_runs_zone_id_zones_id_fk": {
+          "name": "simulation_runs_zone_id_zones_id_fk",
+          "tableFrom": "simulation_runs",
+          "tableTo": "zones",
+          "columnsFrom": [
+            "zone_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "simulation_runs_cree_par_utilisateur_id_utilisateurs_id_fk": {
+          "name": "simulation_runs_cree_par_utilisateur_id_utilisateurs_id_fk",
+          "tableFrom": "simulation_runs",
+          "tableTo": "utilisateurs",
+          "columnsFrom": [
+            "cree_par_utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.stocks": {
+      "name": "stocks",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "produit_id": {
+          "name": "produit_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "borne_id": {
+          "name": "borne_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "quantite": {
+          "name": "quantite",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "seuil_alerte": {
+          "name": "seuil_alerte",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 5
+        },
+        "date_expiration": {
+          "name": "date_expiration",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mis_a_jour_le": {
+          "name": "mis_a_jour_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "stocks_produit_borne_unique": {
+          "name": "stocks_produit_borne_unique",
+          "columns": [
+            {
+              "expression": "produit_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "borne_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "stocks_produit_id_produits_id_fk": {
+          "name": "stocks_produit_id_produits_id_fk",
+          "tableFrom": "stocks",
+          "tableTo": "produits",
+          "columnsFrom": [
+            "produit_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "stocks_borne_id_bornes_id_fk": {
+          "name": "stocks_borne_id_bornes_id_fk",
+          "tableFrom": "stocks",
+          "tableTo": "bornes",
+          "columnsFrom": [
+            "borne_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.utilisateurs": {
+      "name": "utilisateurs",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nom": {
+          "name": "nom",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mot_de_passe_hash": {
+          "name": "mot_de_passe_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "role_utilisateur",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'OPERATEUR'"
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "utilisateurs_email_unique": {
+          "name": "utilisateurs_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      }
+    },
+    "public.ventes": {
+      "name": "ventes",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "local_id": {
+          "name": "local_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "borne_id": {
+          "name": "borne_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "produit_id": {
+          "name": "produit_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "quantite": {
+          "name": "quantite",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "prix_unitaire": {
+          "name": "prix_unitaire",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "montant_total": {
+          "name": "montant_total",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mode_paiement": {
+          "name": "mode_paiement",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'CARTE'"
+        },
+        "statut_sync": {
+          "name": "statut_sync",
+          "type": "statut_sync_vente",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'SYNCHRONISE'"
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sync_le": {
+          "name": "sync_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "ventes_borne_local_id_unique": {
+          "name": "ventes_borne_local_id_unique",
+          "columns": [
+            {
+              "expression": "borne_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "local_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "ventes_borne_id_bornes_id_fk": {
+          "name": "ventes_borne_id_bornes_id_fk",
+          "tableFrom": "ventes",
+          "tableTo": "bornes",
+          "columnsFrom": [
+            "borne_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "ventes_produit_id_produits_id_fk": {
+          "name": "ventes_produit_id_produits_id_fk",
+          "tableFrom": "ventes",
+          "tableTo": "produits",
+          "columnsFrom": [
+            "produit_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.zones": {
+      "name": "zones",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "nom": {
+          "name": "nom",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "type_zone",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fuseau_horaire": {
+          "name": "fuseau_horaire",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'Europe/Paris'"
+        },
+        "config_demande": {
+          "name": "config_demande",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::jsonb"
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {
+    "public.mode_prix": {
+      "name": "mode_prix",
+      "schema": "public",
+      "values": [
+        "AUTOMATIQUE",
+        "MANUEL",
+        "FIXE"
+      ]
+    },
+    "public.role_utilisateur": {
+      "name": "role_utilisateur",
+      "schema": "public",
+      "values": [
+        "ADMIN",
+        "OPERATEUR"
+      ]
+    },
+    "public.source_prix": {
+      "name": "source_prix",
+      "schema": "public",
+      "values": [
+        "REGLE",
+        "MANUEL",
+        "IA"
+      ]
+    },
+    "public.statut_borne": {
+      "name": "statut_borne",
+      "schema": "public",
+      "values": [
+        "ACTIF",
+        "HORS_LIGNE",
+        "MAINTENANCE"
+      ]
+    },
+    "public.statut_reapprovisionnement": {
+      "name": "statut_reapprovisionnement",
+      "schema": "public",
+      "values": [
+        "PLANIFIE",
+        "EN_COURS",
+        "TERMINE",
+        "ANNULE"
+      ]
+    },
+    "public.statut_sync_vente": {
+      "name": "statut_sync_vente",
+      "schema": "public",
+      "values": [
+        "LOCAL",
+        "SYNCHRONISE",
+        "EN_CONFLIT"
+      ]
+    },
+    "public.strategie_simulation": {
+      "name": "strategie_simulation",
+      "schema": "public",
+      "values": [
+        "DYNAMIQUE",
+        "FIXE"
+      ]
+    },
+    "public.type_journal_technique": {
+      "name": "type_journal_technique",
+      "schema": "public",
+      "values": [
+        "DECONNEXION",
+        "RECONNEXION",
+        "CHANGEMENT_PRIX",
+        "ALERTE_STOCK",
+        "VENTE_SYNCHRONISEE",
+        "REGLE_DECLENCHEE"
+      ]
+    },
+    "public.type_zone": {
+      "name": "type_zone",
+      "schema": "public",
+      "values": [
+        "GARE",
+        "CAMPUS",
+        "ZONE_AFFAIRES"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

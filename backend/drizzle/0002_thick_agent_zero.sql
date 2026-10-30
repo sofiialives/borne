@@ -1,0 +1,1 @@
+ALTER TABLE "produits" ADD COLUMN "duree_conservation_jours" integer;

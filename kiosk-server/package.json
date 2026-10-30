@@ -1,0 +1,27 @@
+{
+  "name": "@borne/kiosk-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "dev:gare": "tsx watch src/index.ts",
+    "dev:campus": "KIOSK_BORNE_ID=22222222-2222-4222-8222-222222222222 KIOSK_LOCAL_PORT=4101 KIOSK_DB_PATH=./kiosk-local-campus.sqlite tsx watch src/index.ts",
+    "dev:affaires": "KIOSK_BORNE_ID=33333333-3333-4333-8333-333333333333 KIOSK_LOCAL_PORT=4102 KIOSK_DB_PATH=./kiosk-local-affaires.sqlite tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@borne/shared": "*",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.5.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4"
+  }
+}

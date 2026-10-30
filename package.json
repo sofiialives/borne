@@ -1,0 +1,23 @@
+{
+  "name": "borne-crm",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "shared",
+    "backend",
+    "frontend",
+    "kiosk-server"
+  ],
+  "scripts": {
+    "postinstall": "npm run build --workspace=@borne/shared",
+    "dev:backend": "npm run dev --workspace=@borne/backend",
+    "dev:frontend": "npm run dev --workspace=@borne/frontend",
+    "dev:kiosk-server": "npm run dev:gare --workspace=@borne/kiosk-server",
+    "dev:kiosk-server-campus": "npm run dev:campus --workspace=@borne/kiosk-server",
+    "dev:kiosk-server-affaires": "npm run dev:affaires --workspace=@borne/kiosk-server",
+    "build": "npm run build --workspace=@borne/shared && npm run build --workspace=@borne/backend && npm run build --workspace=@borne/frontend && npm run build --workspace=@borne/kiosk-server",
+    "db:generate": "npm run db:generate --workspace=@borne/backend",
+    "db:migrate": "npm run db:migrate --workspace=@borne/backend",
+    "db:seed": "npm run db:seed --workspace=@borne/backend"
+  }
+}

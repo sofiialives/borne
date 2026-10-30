@@ -1,0 +1,192 @@
+.ecran-borne {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 860px) {
+  .ecran-borne {
+    grid-template-columns: 1fr 360px;
+  }
+}
+
+.zone-catalogue {
+  padding: 18px;
+  overflow-y: auto;
+}
+
+@media (min-width: 860px) {
+  .zone-catalogue {
+    padding: 32px;
+  }
+}
+
+.entete-borne {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.grille-produits {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .grille-produits {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 18px;
+  }
+}
+
+.carte-produit {
+  background: linear-gradient(180deg, var(--kometa-surface), var(--kometa-surface-2));
+  border: 1px solid var(--kometa-ligne);
+  border-radius: 18px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 0.12s ease, border-color 0.12s ease;
+}
+
+.carte-produit:hover {
+  transform: translateY(-2px);
+  border-color: var(--kometa-blue);
+}
+
+.carte-produit .categorie {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--kometa-silver);
+}
+
+.carte-produit .nom {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.carte-produit .prix {
+  font-family: "Radiotechnika", sans-serif;
+  font-size: 22px;
+}
+
+.panneau-panier {
+  background: #0b0b0e;
+  border-top: 1px solid var(--kometa-ligne);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  max-height: 60vh;
+}
+
+@media (min-width: 860px) {
+  .panneau-panier {
+    border-top: none;
+    border-left: 1px solid var(--kometa-ligne);
+    padding: 28px 24px;
+    max-height: none;
+  }
+}
+
+.ecran-selection-borne {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+}
+
+.grille-selection-borne {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  width: 100%;
+  max-width: 820px;
+}
+
+.carte-selection-borne {
+  background: linear-gradient(180deg, var(--kometa-surface), var(--kometa-surface-2));
+  border: 1px solid var(--kometa-ligne);
+  border-radius: 18px;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--kometa-white);
+  transition: transform 0.12s ease, border-color 0.12s ease;
+}
+
+.carte-selection-borne:not(:disabled):hover {
+  transform: translateY(-2px);
+  border-color: var(--kometa-blue);
+}
+
+.carte-selection-borne:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.carte-selection-borne .nom {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.ligne-panier {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--kometa-ligne);
+  font-size: 14px;
+}
+
+.total-panier {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid var(--kometa-ligne);
+}
+
+.indicateur-connexion {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--kometa-surface-2);
+  border: 1px solid var(--kometa-ligne);
+}
+
+.indicateur-connexion::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+}
+
+.indicateur-connexion.en-ligne::before {
+  background: #35d07f;
+}
+
+.indicateur-connexion.hors-ligne::before {
+  background: #ff5c5c;
+}
+
+.ecran-confirmation {
+  position: fixed;
+  inset: 0;
+  background: rgba(14, 14, 14, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+}

@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX IF NOT EXISTS "zones_nom_unique" ON "zones" USING btree ("nom");

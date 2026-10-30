@@ -1,0 +1,358 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Radiotechnika";
+  src: local("Radiotechnika Regular");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Nekst";
+  src: local("Nekst Light");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Nekst";
+  src: local("Nekst Regular");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Nekst";
+  src: local("Nekst Medium");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Nekst";
+  src: local("Nekst Bold");
+  font-weight: 700;
+}
+
+:root {
+  --kometa-blue: #504cff;
+  --kometa-purple: #854cff;
+  --kometa-black: #0e0e0e;
+  --kometa-silver: #d9d9d9;
+  --kometa-white: #fafafa;
+  --kometa-surface: #141418;
+  --kometa-surface-2: #1b1b21;
+  --kometa-ligne: #2a2a32;
+  --kometa-gradient: linear-gradient(135deg, var(--kometa-blue), var(--kometa-purple));
+  --kometa-rayon: 14px;
+  --kometa-ombre: 0 20px 60px rgba(80, 76, 255, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#racine {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at 15% 0%, #1a1530 0%, var(--kometa-black) 45%) fixed;
+  color: var(--kometa-white);
+  font-family: "Nekst", "Inter", system-ui, sans-serif;
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+.titre-marque {
+  font-family: "Radiotechnika", "Nekst", sans-serif;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+.texte-degrade {
+  background: var(--kometa-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+a {
+  color: inherit;
+}
+
+.mise-en-page {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 100%;
+}
+
+@media (min-width: 900px) {
+  .mise-en-page {
+    grid-template-columns: 240px 1fr;
+  }
+}
+
+.barre-laterale {
+  background: linear-gradient(180deg, #121216 0%, #0b0b0e 100%);
+  border-right: 1px solid var(--kometa-ligne);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+@media (min-width: 900px) {
+  .barre-laterale {
+    padding: 28px 20px;
+    gap: 28px;
+    position: static;
+  }
+}
+
+.barre-laterale nav {
+  display: none;
+}
+
+.barre-laterale nav.ouverte,
+.barre-laterale.ouverte nav {
+  display: flex;
+}
+
+@media (min-width: 900px) {
+  .barre-laterale nav {
+    display: flex;
+  }
+}
+
+.bouton-menu-mobile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--kometa-surface-2);
+  border: 1px solid var(--kometa-ligne);
+  color: var(--kometa-white);
+}
+
+@media (min-width: 900px) {
+  .bouton-menu-mobile {
+    display: none;
+  }
+}
+
+.barre-laterale nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lien-nav {
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: var(--kometa-silver);
+  text-decoration: none;
+  font-size: 14px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.lien-nav:hover {
+  background: var(--kometa-surface-2);
+  color: var(--kometa-white);
+}
+
+.lien-nav.actif {
+  background: var(--kometa-surface-2);
+  color: var(--kometa-white);
+  box-shadow: inset 2px 0 0 var(--kometa-blue);
+}
+
+.contenu {
+  padding: 20px 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 900px) {
+  .contenu {
+    padding: 32px 40px;
+  }
+}
+
+.contenu::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(80, 76, 255, 0.25), transparent 70%);
+  pointer-events: none;
+}
+
+.carte {
+  background: linear-gradient(180deg, var(--kometa-surface), var(--kometa-surface-2));
+  border: 1px solid var(--kometa-ligne);
+  border-radius: var(--kometa-rayon);
+  padding: 20px;
+  backdrop-filter: blur(6px);
+}
+
+.carte-verre {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--kometa-rayon);
+  box-shadow: var(--kometa-ombre);
+}
+
+.grille-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.stat-valeur {
+  font-family: "Radiotechnika", sans-serif;
+  font-size: 28px;
+}
+
+.stat-libelle {
+  color: var(--kometa-silver);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th {
+  text-align: left;
+  color: var(--kometa-silver);
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--kometa-ligne);
+}
+
+td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--kometa-ligne);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+.pastille {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  background: var(--kometa-surface-2);
+  border: 1px solid var(--kometa-ligne);
+}
+
+.pastille::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--kometa-silver);
+}
+
+.pastille.actif::before {
+  background: #35d07f;
+}
+
+.pastille.hors-ligne::before {
+  background: #ff5c5c;
+}
+
+button,
+.bouton {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 14px;
+  background: var(--kometa-gradient);
+  color: white;
+  transition: opacity 0.15s ease, transform 0.1s ease;
+}
+
+button:hover,
+.bouton:hover {
+  opacity: 0.9;
+}
+
+button:active,
+.bouton:active {
+  transform: scale(0.98);
+}
+
+button.secondaire {
+  background: var(--kometa-surface-2);
+  border: 1px solid var(--kometa-ligne);
+  color: var(--kometa-white);
+}
+
+input,
+select {
+  font-family: inherit;
+  background: var(--kometa-surface-2);
+  border: 1px solid var(--kometa-ligne);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--kometa-white);
+  font-size: 14px;
+}
+
+input:focus,
+select:focus {
+  outline: 1px solid var(--kometa-blue);
+}
+
+.entete-page {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 700px) {
+  .entete-page {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.tableau-enveloppe {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.sous-titre {
+  color: var(--kometa-silver);
+  font-size: 14px;
+  margin-top: 4px;
+}
